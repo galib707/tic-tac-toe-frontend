@@ -26,7 +26,7 @@ function Game(props) {
     socket.on("new-moves", (data) => {
       setCurrBoard(JSON.parse(data.arrCopy));
       setIsXPlaying(!data.ifXturn);
-      setGameStatus(data.currStatus);
+      // setGameStatus(d);
     });
   }, []);
 
@@ -42,7 +42,7 @@ function Game(props) {
       copyBoard[row][col] = isXplaying ? "X" : "O";
       setCurrBoard(copyBoard);
       setIsXPlaying(!isXplaying);
-      setGameStatus((copyBoard) => ticTacToeGameStatus(copyBoard));
+      setGameStatus((prev) => ticTacToeGameStatus(copyBoard));
       setHistory((currHistory) =>
         currHistory.concat(JSON.stringify(copyBoard))
       );
@@ -82,6 +82,7 @@ function Game(props) {
 }
 
 function ticTacToeGameStatus(board) {
+  console.log("status update");
   function hasXWon() {
     function stateOfX() {
       var count = 0;
